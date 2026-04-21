@@ -45,3 +45,9 @@ Thumbs.db
 
 # Logs
 *.log
+
+06_gmail_classifier/token.json
+token.json
+
+credentials.json
+

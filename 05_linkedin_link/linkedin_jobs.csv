@@ -1,0 +1,633 @@
+﻿id,date_posted,date_created,title,organization,organization_url,date_validthrough,locations_raw,location_type,location_requirements_raw,salary_raw,employment_type,url,source_type,source,source_domain,organization_logo,cities_derived,counties_derived,regions_derived,countries_derived,locations_derived,timezones_derived,lats_derived,lngs_derived,remote_derived,linkedin_org_employees,linkedin_org_url,linkedin_org_size,linkedin_org_slogan,linkedin_org_industry,linkedin_org_followers,linkedin_org_headquarters,linkedin_org_type,linkedin_org_foundeddate,linkedin_org_specialties,linkedin_org_locations,linkedin_org_description,linkedin_org_recruitment_agency_derived,seniority,directapply,linkedin_org_slug,no_jb_schema,external_apply_url,ats_duplicate,linkedin_id,description_text
+2114872180,2026-04-19T22:32:18.253,2026-04-19T23:02:18.345185,Senior Data Engineer,RemoteHunter,https://www.linkedin.com/company/remotehunter,,"[{'@type': 'Place', 'address': {'@type': 'PostalAddress', 'addressRegion': '', 'addressCountry': '', 'addressLocality': 'United States'}}]",,,,['FULL_TIME'],https://www.linkedin.com/jobs/view/senior-data-engineer-at-remotehunter-4403305827,jobboard,linkedin,linkedin.com,https://media.licdn.com/dms/image/v2/D560BAQFwpDDRdts23w/company-logo_100_100/B56ZicfZCbHcAQ-/0/1754972131884/remotehunter_logo?e=2147483647&v=beta&t=wC0WkyfZBixAXqBqUBBWHTH1UR1v8slBaJXI6iFiK2A,,,,['United States'],['United States'],['America/Chicago'],[39.7837304],[-100.445882],False,,https://remotehunter.com,11-50 employees,The AI that tracks down jobs on your behalf.,Software Development,,,Privately Held,2025,[''],[],"RemoteHunter is your dedicated AI job search assistant, turning the job hunt from a slow, individual effort into a quicker, smarter, and guided experience by streamlining each step of the process and speeding up your path to the right career opportunities.",True,Mid-Senior level,False,remotehunter,True,,,4403305827,"1. About Our Client:
+
+The organization is a technology company supported by a non-profit foundation focused on improving the internet experience. It develops products used by over 225 million people monthly, including a privacy-focused web browser. The organization addresses challenges in internet openness, privacy, and user control by creating open-source software that empowers people to use the internet on their own terms. Its work spans areas such as AI, security, and social media, maintaining a mission to make the internet better for users. Operated without shareholder influence, it collaborates with a global community of volunteers and contributors.
+
+2. About the Opportunity:
+
+The Senior Data Engineer will be an integral part of the Data Engineering team responsible for managing the entire data lifecycle. This role bridges technical systems and business needs by building and maintaining data pipelines and transforming raw data into trusted, high-quality datasets. The position contributes directly to enabling data-informed decisions across the organization by improving data accessibility, reliability, and quality. The engineer will collaborate with cross-functional teams to evolve the data platform while ensuring adherence to data governance and privacy standards.
+
+3. Responsibilities:
+
+• Build and manage business data pipelines and transform telemetry data into high-quality datasets
+• Collaborate with data scientists and product teams to create models and metrics that inform decisions
+• Monitor data quality using observability tools and participate in weekly triage to resolve issues
+• Partner with engineering teams to improve the data platform and workflows
+• Implement and enforce data governance and privacy policies across large-scale datasets
+
+4. Requirements:
+
+• Minimum 4 years of professional data engineering experience
+• Proficiency in SQL and Python with interest in integrating AI into workflows
+• Experience in data modeling, translating complex business processes into analytical models
+• Strong software engineering skills with modular, reusable, and efficient code design
+• Ability to independently plan and execute projects while communicating effectively with distributed teams
+• Expertise in one or more of the following areas: new data collection methods, data-driven decision-making, cloud distributed systems (GCP), distributed databases, message queues, batch or stream processing
+• Knowledge of data orchestration, error handling, and idempotency to ensure data reliability
+• Commitment to values including inclusivity, relationship-building, responsible participation, and perseverance
+
+5. Pay Range and Compensation Package:
+
+• The pay range and compensation package for this role will be determined based on the candidate’s experience, skills, and other relevant factors.
+
+6. Benefits & Perks:
+
+• Performance-based bonus plans for eligible employees
+• Medical, dental, and vision coverage
+• Retirement contributions with 100% immediate vesting
+• Quarterly all-company wellness days
+• Paid holidays plus a birthday day off
+• One-time home office stipend
+• Annual professional development budget
+• Quarterly well-being stipend
+• Paid parental leave
+• Employee referral bonus program
+• Additional benefits depending on country (life/AD&D, disability, EAP, etc.)
+
+Equal Opportunity Statement: Our client is an equal opportunity employer. They celebrate diversity and are committed to creating an inclusive environment for all employees. All qualified applicants will receive consideration for employment without regard to race, color, religion, gender, gender identity or expression, sexual orientation, or national origin.
+
+Note:
+RemoteHunter is not the Employer of Record (EOR) for this role. Our purpose in this opportunity is to connect exceptional candidates with leading employers. We help job seekers worldwide discover roles that match their goals and guide them to complete their full application directly through the hiring company’s career page or ATS."
+2114872175,2026-04-19T22:30:17.071,2026-04-19T23:02:17.154813,Senior Data Engineer,RemoteHunter,https://www.linkedin.com/company/remotehunter,,"[{'@type': 'Place', 'address': {'@type': 'PostalAddress', 'addressRegion': '', 'addressCountry': '', 'addressLocality': 'United States'}}]",,,,['FULL_TIME'],https://www.linkedin.com/jobs/view/senior-data-engineer-at-remotehunter-4403318761,jobboard,linkedin,linkedin.com,https://media.licdn.com/dms/image/v2/D560BAQFwpDDRdts23w/company-logo_100_100/B56ZicfZCbHcAQ-/0/1754972131884/remotehunter_logo?e=2147483647&v=beta&t=wC0WkyfZBixAXqBqUBBWHTH1UR1v8slBaJXI6iFiK2A,,,,['United States'],['United States'],['America/Chicago'],[39.7837304],[-100.445882],False,,https://remotehunter.com,11-50 employees,The AI that tracks down jobs on your behalf.,Software Development,,,Privately Held,2025,[''],[],"RemoteHunter is your dedicated AI job search assistant, turning the job hunt from a slow, individual effort into a quicker, smarter, and guided experience by streamlining each step of the process and speeding up your path to the right career opportunities.",True,Mid-Senior level,False,remotehunter,True,,,4403318761,"1. About Our Client:
+
+The organization is a non-profit-backed technology company that has influenced the internet landscape for over 25 years. It develops privacy-focused products, including a widely used web browser with more than 225 million monthly users globally. The organization addresses challenges related to internet openness, privacy, and user empowerment, focusing on areas such as artificial intelligence, social media, and security. It operates under a non-profit foundation, allowing it to prioritize mission over shareholders, and collaborates with a global network of volunteers to develop open-source software that supports user control over internet experience.
+
+2. About the Opportunity:
+
+The Senior Data Engineer will be a pivotal member of the Data Engineering team, responsible for managing the full data lifecycle. This role focuses on transforming raw data into reliable, high-quality datasets and models that support informed decision-making across the organization. The position bridges technical systems and business needs, ensuring data platforms are robust, accessible, and trustworthy. The role contributes significantly to maintaining data integrity, quality, and usability, enabling teams to leverage data effectively for strategic initiatives.
+
+3. Responsibilities:
+
+• Build and maintain business data pipelines
+• Transform telemetry data into structured, high-quality datasets
+• Collaborate with data scientists, product, and marketing teams to develop models and metrics
+• Monitor data quality using observability tools and participate in issue triage
+• Partner with engineers to improve data platform processes
+• Implement and enforce data governance and privacy policies across large-scale data systems
+
+4. Requirements:
+
+• Minimum 4 years of professional experience in data engineering
+• Proficiency in SQL and Python
+• Experience integrating AI into data engineering workflows
+• Skill in mapping complex business processes into extensible analytical data models
+• Strong software engineering fundamentals with modular, reusable, efficient code
+• Ability to independently manage projects and communicate effectively across distributed teams
+• Proficiency in one or more of the following areas:
+• Recommending and implementing new data collection methods
+• Using data to answer specific questions and guide decisions
+• Experience with cloud distributed systems (e.g., GCP), including distributed databases, message queues, batch or stream processing
+• Ensuring data reliability through orchestration, error handling, and idempotency
+• Commitment to values including welcoming differences, relationship-mindedness, responsible participation, and grit
+
+5. Pay Range and Compensation Package:
+
+• To learn the Hiring Ranges for this position, please select your location from the Apply Now dropdown menu.
+• The pay range and compensation package for this role will be determined based on the candidate’s experience, skills, and other relevant factors.
+
+6. Benefits & Perks:
+
+• Performance-based bonus plans for eligible employees
+• Medical, dental, and vision coverage
+• Retirement contributions with 100% immediate vesting regardless of employee contribution
+• Quarterly company-wide wellness days
+• Country-specific holidays plus a birthday day off
+• One-time home office stipend
+• Annual professional development budget
+• Quarterly well-being stipend
+• Paid parental leave
+• Employee referral bonus program
+• Additional benefits including life/AD&D insurance, disability, and employee assistance programs (varies by country)
+
+Equal Opportunity Statement: Our client is an equal opportunity employer. They celebrate diversity and are committed to creating an inclusive environment for all employees. All qualified applicants will receive consideration for employment without regard to race, color, religion, gender, gender identity or expression, sexual orientation, or national origin.
+
+Note:
+RemoteHunter is not the Employer of Record (EOR) for this role. Our purpose in this opportunity is to connect exceptional candidates with leading employers. We help job seekers worldwide discover roles that match their goals and guide them to complete their full application directly through the hiring company’s career page or ATS."
+2114859328,2026-04-19T21:52:46,2026-04-19T22:02:10.895756,Senior Data Engineer,Acadian Asset Management,https://www.linkedin.com/company/acadian-asset-management,2026-05-19T21:52:46,"[{'@type': 'Place', 'address': {'@type': 'PostalAddress', 'addressCountry': 'US', 'addressLocality': 'Boston', 'addressRegion': 'MA', 'streetAddress': None}, 'latitude': 42.358994, 'longitude': -71.05863}]",,,,['FULL_TIME'],https://www.linkedin.com/jobs/view/senior-data-engineer-at-acadian-asset-management-4403898981,jobboard,linkedin,linkedin.com,https://media.licdn.com/dms/image/v2/D4E0BAQHWuHDpbwihlQ/company-logo_200_200/B4EZfDoFL1HgAI-/0/1751333754387/acadian_asset_management_logo?e=2147483647&v=beta&t=L_B7KDJr1Odnn-6jNoa9d6pv42OvOn-Bz-O92T5N6iA,['Boston'],['Suffolk County'],['Massachusetts'],['United States'],"['Boston, Massachusetts, United States']",['America/New_York'],[42.3554334],[-71.060511],False,450.0,http://www.acadian-asset.com,201-500 employees,"Systematic investing built on 35+ years of data-driven insights. Equity, alts, credit, sustainable strategies. ",Financial Services,31173.0,"Boston, MA",Privately Held,1986,"['active equity', 'low volatility', 'multi-asset investment', 'ESG', 'Responsible Investing', 'quantitative investing', 'global macro', 'systematic investing', 'alternatives', 'systematic credit', 'extension strategies', 'and sustainable investing']","['260 Franklin Street, Boston, MA 02110, US', '20 Martin Place, Level 9, Suite 3, Sydney, New South Wales 2000, AU', '24 King William Street, 6th Floor, London , EC4R 9AT, GB', '8 Marina View, #40-01, Asia Square Tower 1, Singapore, 018960, SG']","Acadian Asset Management is a global, systematic investment manager. Founded in 1986, Acadian is head-quartered in Boston, with affiliates in London, Singapore, and Sydney. We find our edge in the convergence of talented people, rich data, and powerful tools – all underpinned by a collegial culture with an ardent appetite for continuous research and healthy debate. 
+
+Building on the idea that markets are inefficient, we were among the first firms in the world to apply data and technology to the systematic evaluation of global investments. With over 35 years of data-driven insights, we manage equity and credit strategies intended to deliver active returns and alternative strategies designed to deliver absolute, uncorrelated results. Our sustainable investing capabilities provide a platform for both client-specific solutions and a cutting-edge approach to engagement.
+
+DISCLOSURE: Acadian Asset Management is not responsible for the content provided on any linked external site and makes no warranties, express or implied, for the accuracy of any content or use of a third-party website and assumes no liability for any errors, inaccuracies, or omissions for third-party website content. While Acadian is providing a link to a third-party website, Acadian does not control, approve, or endorse the website or any of its contents, its sponsor, or any of the policies, activities, products, or services offered on the site or by any advertiser on the site.",False,Mid-Senior level,False,acadian-asset-management,,,True,4403898981,"Acadian Asset Management is a global, systematic investment manager at the forefront of data-driven investing since 1986. Headquartered in Boston, with locations in Singapore, London, and Sydney, we manage over $170 billion on behalf of leading institutions worldwide—including pension funds, endowments, foundations, and sovereign wealth funds. We harness advanced technology, rich datasets, and multidisciplinary expertise to help clients navigate complex markets and uncover insights that may be overlooked by traditional approaches.
+
+What sets Acadian apart is our people. We foster a collaborative, intellectually curious environment where ideas are tested, diverse perspectives are welcomed, and innovation thrives. We’re united by a shared purpose: delivering effective client outcomes and supporting one another in work that’s both challenging and rewarding. We offer a flexible hybrid work environment, strong benefits, and a casual but focused office culture—all designed to support the meaningful, collaborative work that defines Acadian.
+
+Position Overview
+
+Building on a multi-decade history in quantitative equity, Acadian has expanded its reach into multi-asset, alternative equity, and systematic credit. Acadian’s investment data engineering function is developing a platform to enhance its data capabilities, enabling operations at significant scale across a broad array of asset classes. We are seeking a senior contributor to help design, build, and support a data platform that will drive our investment process. Acadian supports a hybrid work environment; employees are on-site in the Boston office three days a week.
+
+What You’ll Do
+
+Design and build a highly scalable data platform using various data storage and high-performance computing technologies on AWS.
+Develop patterns, frameworks, and tooling to seamlessly integrate new data content and derived metrics while ensuring data quality.
+Collaborate with data and technology teams to extend data quality capabilities and establish support practices for the investment data platform.
+Participate in design reviews of advancements in Acadian’s investment decision systems to promote adoption and ensure seamless integration with the data platform.
+Develop familiarity and expertise in investment data content and its role in Acadian’s investment strategies.
+Maintain all aspects of daily investment process systems, including production jobs.
+Engineer solutions that are well-tested, high-quality, and extensible.
+
+We’re Looking For Teammates With
+
+Bachelor’s degree with an outstanding academic record in a technical field such as mathematics, science, or engineering; a CFA charter is a plus.
+Superior software development, data modeling, and programming skills to move quickly from concept to solution, with a solid understanding of the software development life cycle.
+Significant hands-on development experience with Python for modeling/analytical work and SQL for data access and architecture using libraries such as Pandas, Polars, Ibis).
+An understanding of the best fit for column, key-value, document, relational, time-series, and file stores.
+Experience working with AWS cloud services (e.g., S3, EC2, ECS) and Kubernetes.
+Familiarity with data platforms and tools such as DuckDB, ClickHouse, MongoDB, Iceberg, PostgreSQL, DynamoDB, and Redis, as well as orchestration tools (e.g., Dagster, Airflow).
+Creativity, enthusiasm, collegiality, and the ability to excel in a self-starting environment.
+A drive to deliver high-value projects with a roll-up-your-sleeves attitude.
+Outstanding analytical skills and the ability to clearly articulate approaches and results in verbal, graphical, and written form.
+
+The base salary range for this role is $175,000 – $200,000 per year. Actual compensation will be determined based on a candidate’s skills, qualifications, and relevant experience. In addition to base pay, this position may be eligible for discretionary incentive compensation and includes participation in Acadian’s comprehensive benefits program, which includes health, retirement, and wellness offerings.
+
+To apply for this position or view Acadian’s open roles, please visit the Careers section of our website at: http://www.acadian-asset.com/careers/Job-opportunities. We will contact only selected candidates. If you are a candidate with a disability, or are assisting a candidate with a disability, and require an accommodation to apply for one of our jobs, please email us at recruiting@acadian-asset.com.
+
+Acadian Asset Management LLC is committed to providing equal employment opportunity to all employees and applicants. No employee or applicant shall be discriminated against on the basis of gender, race, creed, color, sex, age, national origin, marital status, pregnancy or parenthood, veteran status, citizenship status, disability, gender identity, or sexual orientation."
+2114844742,2026-04-19T21:24:57,2026-04-19T21:32:04.925151,Data Engineer AVP,hackajob,https://www.linkedin.com/company/hackajob,2026-05-19T21:24:57,"[{'@type': 'Place', 'address': {'@type': 'PostalAddress', 'addressCountry': 'US', 'addressLocality': 'Hanover', 'addressRegion': 'NJ', 'streetAddress': None}, 'latitude': 40.824894, 'longitude': -74.41804}]",,,"{'@type': 'MonetaryAmount', 'currency': 'USD', 'value': {'@type': 'QuantitativeValue', 'minValue': 189592, 'maxValue': 208552, 'unitText': 'YEAR'}}",['FULL_TIME'],https://www.linkedin.com/jobs/view/data-engineer-avp-at-hackajob-4403312690,jobboard,linkedin,linkedin.com,https://media.licdn.com/dms/image/v2/D4D0BAQG3u9MOOWLo4w/company-logo_200_200/B4DZxrAcyeJUAQ-/0/1771321808742/hackajob_logo?e=2147483647&v=beta&t=E4zwtiK8S4B14egkOiUTPPx2LCA96U8MRVM5CS6UHKw,['Hanover Township'],['Morris County'],['New Jersey'],['United States'],"['Hanover Township, New Jersey, United States']",['America/New_York'],[40.8174216],[-74.3954057],False,120.0,https://www.hackajob.com,51-200 employees,"AI agents for job seekers and employers—making hiring easier, faster and fairer.",Software Development,,London,Privately Held,2014,"['Graduate Recruitment', 'Disruption', 'Recruiting', 'and AI Recruiting']","['hackajob, 2nd Floor, 63 Gee Street, London, EC1V 3RS, GB', '287 Park Avenue South, 7th Floor, New York City, New York NY 10010, US', 'Solomons building, 37 Sfantul Lazar Street, Iasi, Iasi 700049, RO']","hackajob has the AI hiring tools trusted by enterprises, scale-ups, and 1M+ tech professionals worldwide. 
+
+Job ads don’t tell the whole story. hackajob captures every nuance to connect companies with real, engaged tech talent, aligned to the *actual* hiring brief. 
+
+No ghosting. No noise. No irrelevant outreach.
+
+From Software Engineers and Cloud specialists to Product and Data experts, AI agents match job seekers based on real skills and preferences — not just keywords. They stay in control, choosing to privately accept or decline opportunities.
+
+The result?
+
+70,000 candidates connected to relevant opportunities each month.
+
+8x better conversion than direct applications.
+
+68% fewer interviews to make a hire.",True,Mid-Senior level,False,hackajob,,,,4403312690,"hackajob is collaborating with Barclays to connect them with exceptional professionals for this role.
+
+What will you be doing?
+
+Barclays Services Corp. seeks Data Engineer AVP in Whippany, NJ (multiple positions available):
+
+Integrate onboarding platforms with risk and financial crime compliance systems like PEP/sanctions screening, AML transaction monitoring, and document verification systems.
+Develop data pipelines using Apache Spark, Python, and Databricks, as well as ETL orchestration tools across multi-cloud platforms including AWS Glue, Azure Data Factory, and GCP Dataflow.
+Build scalable microservices in Java using Spring Boot, Spring Data, Hibernate, Python Flask and FastAPI, and NodeJS (ExpressJS) in containerized environments (Docker, Kubernetes), integrated with messaging systems (Kafka, Redis).
+Design databases and model data using MS SQL Server, PostgreSQL, MongoDB, and DynamoDB and Aurora
+Support audit logs, segmentation rules, and onboarding KPIs.
+Integrate enterprise analytics platforms such as Tableau, HyperCube, Power BI, and build compliance-focused dashboards.
+Design and build secure and compliant web applications in regulated financial environments using HTML5, CSS3, TypeScript, AngularJS, ReactJS, and NodeJS, supporting onboarding and client due diligence (CDD) processes.
+Develop automations for onboarding approval workflows using regulatory standards such as BSA/AML, FATF, and CCPA/GDPR, with experience translating compliance logic into code.
+Perform CI/CD automation and infrastructure deployment using GitLab, Jenkins, Terraform, and AWS CloudFormation, with audit-ready traceability practices.
+Provide subject matter expertise and Agile/Scrum leadership to multi-disciplinary software teams. Mentor junior engineers, conducting code reviews, and delivering compliance software within enterprise sprint cycles.
+
+Minimum Salary: $189,592 per year
+
+Maximum Salary: $208,552 per year
+
+The minimum and maximum salary/rate information above includes only base salary or base hourly rate. It does not include any other type of compensation or benefits that may be available.
+
+Barclays employees are eligible for a suite of a competitive and generous employee benefits, including medical, dental and vision coverage, 401(k), life insurance, and other paid leave for qualifying circumstances.
+
+This position is eligible for an incentive award.
+
+Purpose of the role
+
+To build and maintain the systems that collect, store, process, and analyse data, such as data pipelines, data warehouses and data lakes to ensure that all data is accurate, accessible, and secure.
+
+Accountabilities
+
+Build and maintenance of data architectures pipelines that enable the transfer and processing of durable, complete and consistent data.
+Design and implementation of data warehoused and data lakes that manage the appropriate data volumes and velocity and adhere to the required security measures.
+Development of processing and analysis algorithms fit for the intended data complexity and volumes.
+Collaboration with data scientist to build and deploy machine learning models.
+
+Assistant Vice President Expectations
+
+To advise and influence decision making, contribute to policy development and take responsibility for operational effectiveness. Collaborate closely with other functions/ business divisions.
+Lead a team performing complex tasks, using well developed professional knowledge and skills to deliver on work that impacts the whole business function. Set objectives and coach employees in pursuit of those objectives, appraisal of performance relative to objectives and determination of reward outcomes
+If the position has leadership responsibilities, People Leaders are expected to demonstrate a clear set of leadership behaviours to create an environment for colleagues to thrive and deliver to a consistently excellent standard. The four LEAD behaviours are: L – Listen and be authentic, E – Energise and inspire, A – Align across the enterprise, D – Develop others.
+OR for an individual contributor, they will lead collaborative assignments and guide team members through structured assignments, identify the need for the inclusion of other areas of specialisation to complete assignments. They will identify new directions for assignments and/ or projects, identifying a combination of cross functional methodologies or practices to meet required outcomes.
+Consult on complex issues; providing advice to People Leaders to support the resolution of escalated issues.
+Identify ways to mitigate risk and developing new policies/procedures in support of the control and governance agenda.
+Take ownership for managing risk and strengthening controls in relation to the work done.
+Perform work that is closely related to that of other areas, which requires understanding of how areas coordinate and contribute to the achievement of the objectives of the organisation sub-function.
+Collaborate with other areas of work, for business aligned support areas to keep up to speed with business activity and the business strategy.
+Engage in complex analysis of data from multiple sources of information, internal and external sources such as procedures and practises (in other areas, teams, companies, etc).to solve problems creatively and effectively.
+Communicate complex information. 'Complex' information could include sensitive information or information that is difficult to communicate because of its content or its audience.
+Influence or convince stakeholders to achieve outcomes.
+
+All colleagues will be expected to demonstrate the Barclays Values of Respect, Integrity, Service, Excellence and Stewardship – our moral compass, helping us do what we believe is right. They will also be expected to demonstrate the Barclays Mindset – to Empower, Challenge and Drive – the operating manual for how we behave."
+2114818333,2026-04-19T20:06:50,2026-04-19T20:25:35.327423,Lead Data Engineer (Python/SQL),Brady Corporation,https://www.linkedin.com/company/brady-corporation,2026-05-02T20:06:46,"[{'@type': 'Place', 'address': {'@type': 'PostalAddress', 'addressCountry': 'US', 'addressLocality': 'Milwaukee', 'addressRegion': 'WI', 'streetAddress': None}, 'latitude': 43.041073, 'longitude': -87.909424}]",,,,['FULL_TIME'],https://www.linkedin.com/jobs/view/lead-data-engineer-python-sql-at-brady-corporation-4401279730,jobboard,linkedin,linkedin.com,https://media.licdn.com/dms/image/v2/D560BAQGd1eSDxV_qEg/company-logo_200_200/company-logo_200_200/0/1712953818444/brady_corporation_logo?e=2147483647&v=beta&t=sRTlG-NUPz-l3ldO9U5F_7I_gHdxobyw_gQYOddL_fU,['Milwaukee'],['Milwaukee County'],['Wisconsin'],['United States'],"['Milwaukee, Wisconsin, United States']",['America/Chicago'],[43.0386475],[-87.9090751],False,4243.0,https://www.bradyid.com,"5,001-10,000 employees",,Manufacturing,110621.0,"Milwaukee, WI",Public Company,,"['Identification solutions', 'workplace safety', 'brand protection', 'lockout/tagout', 'manufacturing/lean', 'sustainability', 'safety solutions', 'lean 5s', 'lean manufacturing', 'printing', 'and labels']","['6555 W Good Hope Rd, Milwaukee, WI 53223, US', 'Poldergotestraat, 9, Zele, Flemish Region 9240, BE']","Brady Corporation is an international manufacturer and marketer of complete solutions that identify and protect people, products and places. Brady’s products help customers increase safety, security, productivity and performance and include high-performance labels, signs, safety devices, printing systems and software. 
+
+Founded in 1914, the Company has a diverse customer base in electronics, telecommunications, manufacturing, electrical, construction, medical, aerospace and a variety of other industries.  
+
+Brady is headquartered in Milwaukee, Wisconsin and as of July 31, 2021, employed approximately 5,700 people in its worldwide businesses.  Brady’s fiscal 2021 sales were approximately $1.14 billion. Brady stock trades on the New York Stock Exchange under the symbol BRC. More information is available on the Internet at www.bradycorp.com.",False,Mid-Senior level,False,brady-corporation,,,True,4401279730,"What We Need
+
+Brady Worldwide, Inc., is seeking a Lead Data Engineer (Python/SQL) to work at our Milwaukee, WI headquarters. Flexible work hours available. As a Lead Data Engineer, you are responsible for design, development, and support of data pipelines from multiple applications and sources to facilitate data analytics needs. Our team partners with Sales & Marketing, Finance, and Operations business users and data scientists to help develop data driven insights and make data-driven decisions. The Lead Data Engineer works with various data and BI tools and technologies, such as Python, SQL Server, Google Big Query, Google Cloud Composer, etc.
+
+What You'll Be Doing
+
+Develop data pipelines from multiple sources using SQL, Big Query, and Python code.
+Develop SQL code or data flow to integrate and transform data from multiple sources into useful, consistent and easily consumable data elements.
+Work with business analysts and business users to understand data requirements and map into easy consumable data elements.
+Provide ongoing enhancement and support for data pipelines in the production environment. Understand critical needs of the business, identify and fix issues with a sense of urgency.
+Participate in discussions on design options and approaches, propose solutions and develop the new capabilities.
+Perform and lead the code reviews to identify coding, process and functionality improvements.
+Work on troubleshooting, identifying issues and performance bottlenecks, problem solving and impact analysis.
+Follow the Scrum process and take ownership of Jira stories.
+Lead the junior developers, provide directions and guide them with development and support processes.
+
+What You Will Need To Be Successful
+
+Qualified individuals must have a Bachelor of Science in Computer Science, Engineering or related field and 7 years of progressive Data Engineering experience required. As part of the 7 years of progressive Data Engineering experience required, the individual must have:
+At least 7 years of experience working with ETL and SQL development
+At least 7 years of experience working with Enterprise Data Warehouse and Dimensional Data Model.
+At least 5 years of experience working with Python or .NET programming
+At least 5 years of experience working with cloud data platform, Azure or GCP
+At least 5 years of experience using analytical and problem solving skills including independently troubleshooting issues and determining and developing the best solution while considering all impacts to the production system.
+
+Qualified applicants should apply at https://bradyid.com/corporate/careers
+
+About Us
+
+Who we are:
+
+Brady makes products that make the world a safer and more productive place. We are a global leader in safety, identification and compliance solutions for a diverse range of workplaces. From the depths of the ocean to outer space, from the factory floor to the delivery room - we're just about everywhere you look. Companies around the world trust Brady because of our deep expertise and knowledge across a wide range of industries and applications - powered by our world-class manufacturing capabilities.
+
+We have a diverse customer base in industries including electronics, telecommunications, manufacturing, electrical, construction, healthcare, aerospace and more. As of July 31, 2025, Brady employed approximately 6,400 people in our worldwide businesses. Our fiscal 2025 sales were approximately $1.51 billion. Brady stock trades on the New York Stock Exchange under the symbol BRC. You can learn more about us at www.bradycorp.com.
+
+Why Work At Brady
+
+A career at Brady means working for a global company that has thrived for over 100 years, and whose innovative spirit drives our future growth.
+
+Brady offers competitive pay and great benefits, supported by a culture that encourages collaboration and innovation. We strive to foster an inclusive workplace where diverse talent can learn, grow, and succeed. And with deeply rooted values, no matter where you work at Brady, you'll feel connected to the community through our charitable contributions and opportunities to give back.
+
+Our headquarters are in Milwaukee, Wisconsin, but we have more than 70 locations globally, giving our employees the opportunity to work with colleagues around the world.
+
+Our Benefits
+
+Comprehensive insurance coverage starting on your first day of employment, including medical, dental, and vision
+Generous 401(k) with company match
+Paid time off and holidays
+Opportunity to participate in incentive programs for all full-time employees
+Family planning benefits including paid parental leave, fertility coverage, adoption and surrogacy assistance
+Education reimbursement opportunities
+Scholarship program for children of Brady employees
+A variety of Employee Resource Groups to provide you with unique networking, development, and volunteer opportunities
+Employee Assistance Program and related wellness programs (mental and behavioral health, family counseling, financial management)
+Dress-for-your-day dress code
+Charitable contributions matched through Brady's Matching Gift program"
+2114813198,2026-04-19T19:41:15.406,2026-04-19T20:02:15.50094,Senior Data Engineer (AWS/BI/SQL),Jobs via Dice,https://www.linkedin.com/company/jobs-via-dice,,"[{'@type': 'Place', 'address': {'@type': 'PostalAddress', 'addressRegion': '', 'addressCountry': '', 'addressLocality': 'United States'}}]",,,,['FULL_TIME'],https://www.linkedin.com/jobs/view/senior-data-engineer-aws-bi-sql-at-jobs-via-dice-4403311648,jobboard,linkedin,linkedin.com,https://media.licdn.com/dms/image/v2/D560BAQFwOT1y-MRTFQ/company-logo_100_100/B56ZVEKZkcHsAQ-/0/1740605332130/jobs_via_dice_logo?e=2147483647&v=beta&t=EZY1uMT7XQYYUs4UMQmbM_7Zi-p9IWZqJHT9xbNktRY,,,,['United States'],['United States'],['America/Chicago'],[39.7837304],[-100.445882],False,24.0,https://www.dice.com,1 employee,Dice: Where tech connects.™,Software Development,,,Public Company,,[''],[],"Welcome to Jobs via Dice, the go-to destination for discovering the tech jobs you want.
+
+This page is dedicated to sharing job opportunities with tech professionals at every stage of their careers. When you see a job posted by Jobs via Dice, it’s a job for one of our many clients seeking to hire tech professionals like you.
+
+At Dice, we understand that your career in technology is more than just a job; it’s a journey of growth, innovation and continuous learning. Stay connected with us to explore the latest job opportunities, industry trends and career tips tailored for tech professionals. Your future in tech starts here.
+
+What You’ll Find on Dice.com:
+
+Tailored Tech Opportunities - Connect with the right tech companies and roles that match your skills and ambitions. Whether you're looking to land your first job or elevate your career, Dice is here to help.
+
+Career Resources - Utilize our tools to build your skills, enhance your visibility, and get noticed by top employers.
+
+Easy Apply - Find and apply to your perfect tech role in just a few clicks with our Easy Apply feature. Simplify your job search and get hired faster.
+
+Industry Insights - Stay ahead with our expert career advice and industry insights. From resume tips to interview prep, we provide the resources you need to succeed.
+
+Employer Profiles - Get a firsthand look at a company’s culture to make informed decisions about where you want to work.
+
+Join the community of tech professionals who trust Dice to help them find and apply to their next job in tech.
+
+To follow our company page on LinkedIn, visit: https://www.linkedin.com/company/dice
+",True,Mid-Senior level,False,jobs-via-dice,True,,,4403311648,"Overview
+
+We are seeking a Senior Data Engineer who thrives on building high-quality, resilient data solutions at scale. In this role, you will design and deliver serverless data pipelines and event-driven microservices on AWS, optimize complex SQL workloads in Redshift, and contribute to analytics and quality engineering automation. This position is ideal for an engineer who enjoys hands-on work across data engineering, analytics enablement, and automated testing within a modern AWS stack.
+
+Responsibilities
+
+Collaborate with product, architecture, and engineering teams to design, build, test, deploy, and support data-intensive services and features.
+Build and maintain production-grade, event-driven microservices using Node.js and Python.
+Design and operate serverless ETL pipelines and automate data ingestion and transformation into Redshift.
+Optimize complex SQL for performance and reliability, including joins, window functions, and large-scale aggregations.
+Integrate Redshift Serverless with AWS services and BI tools for real-time analytics and dashboards.
+Implement unit testing, code reviews, and quality engineering and automation practices.
+Apply AWS security, performance, and cost optimization best practices.
+Document data models, data contracts, and operational runbooks.
+
+What You Bring
+
+5+ years of professional experience as a Data Engineer or Software Engineer focused on data platforms and analytics.
+Expert-level SQL skills for extraction, transformation, optimization, and reporting.
+Hands-on experience with Redshift Serverless and related AWS services.
+Proficiency with core AWS services used in data and event-driven architectures.
+Production experience with Python and Node.js.
+Working knowledge of AI or ML technologies in a data engineering context.
+
+Engagement Details
+
+This is a full-time, remote position with Codex Studios, offering the opportunity to work with a cutting-edge technology stack and a vibrant, collaborative team."
+2114813156,2026-04-19T19:40:58,2026-04-19T20:02:11.506985,Senior Data Engineer,Jobs via Dice,https://www.linkedin.com/company/jobs-via-dice,2026-05-19T19:40:58,"[{'@type': 'Place', 'address': {'@type': 'PostalAddress', 'addressCountry': 'US', 'addressLocality': 'Denver', 'addressRegion': 'CO', 'streetAddress': None}, 'latitude': 39.738453, 'longitude': -104.984856}]",TELECOMMUTE,"[{'@type': 'Country', 'name': 'Denver, Colorado, United States'}]",,['FULL_TIME'],https://www.linkedin.com/jobs/view/senior-data-engineer-at-jobs-via-dice-4403321569,jobboard,linkedin,linkedin.com,https://media.licdn.com/dms/image/v2/D560BAQFwOT1y-MRTFQ/company-logo_200_200/B56ZVEKZkcHsAI-/0/1740605332130/jobs_via_dice_logo?e=2147483647&v=beta&t=ItuthDpih45En6x_7Lse_G78cn8jTcnIwXNaxfl8zqM,['Denver'],['Denver County'],['Colorado'],['United States'],"['Denver, Colorado, United States']",['America/Denver'],[39.7392364],[-104.984862],True,24.0,https://www.dice.com,1 employee,Dice: Where tech connects.™,Software Development,,,Public Company,,[''],[],"Welcome to Jobs via Dice, the go-to destination for discovering the tech jobs you want.
+
+This page is dedicated to sharing job opportunities with tech professionals at every stage of their careers. When you see a job posted by Jobs via Dice, it’s a job for one of our many clients seeking to hire tech professionals like you.
+
+At Dice, we understand that your career in technology is more than just a job; it’s a journey of growth, innovation and continuous learning. Stay connected with us to explore the latest job opportunities, industry trends and career tips tailored for tech professionals. Your future in tech starts here.
+
+What You’ll Find on Dice.com:
+
+Tailored Tech Opportunities - Connect with the right tech companies and roles that match your skills and ambitions. Whether you're looking to land your first job or elevate your career, Dice is here to help.
+
+Career Resources - Utilize our tools to build your skills, enhance your visibility, and get noticed by top employers.
+
+Easy Apply - Find and apply to your perfect tech role in just a few clicks with our Easy Apply feature. Simplify your job search and get hired faster.
+
+Industry Insights - Stay ahead with our expert career advice and industry insights. From resume tips to interview prep, we provide the resources you need to succeed.
+
+Employer Profiles - Get a firsthand look at a company’s culture to make informed decisions about where you want to work.
+
+Join the community of tech professionals who trust Dice to help them find and apply to their next job in tech.
+
+To follow our company page on LinkedIn, visit: https://www.linkedin.com/company/dice
+",True,Mid-Senior level,False,jobs-via-dice,,,,4403321569,"Dice is the leading career destination for tech experts at every stage of their careers. Our client, Vation Ventures, is seeking the following. Apply via Dice today!
+
+Senior Data Engineer
+
+Introduction
+
+We''re hiring a Senior Data Engineer to lead data platform delivery across our client engagements. This role involves architecting lakehouses, building production pipelines, modeling for analytics and AI workloads, and handing off platforms clients can actually operate.
+
+This is a hands-on role with architecture leadership. You''ll spend most of your time in code — building Lakeflow pipelines, dbt models, and ingestion patterns — but you''ll also make the calls that shape the platform: Bronze/Silver/Gold structure, medallion vs. hub-and-spoke, catalog design, governance model.
+
+You''ll walk into messy client environments — legacy core systems, undocumented schemas, competing definitions of ""customer"" across three departments — and figure out what to actually build. The tooling is the easy part; the hard part is the reasoning.
+
+You''ll work directly with clients. You''ll scope, design, build, and present.
+
+Responsibilities
+
+Own data platform delivery on concurrent client engagements
+Design lakehouse and warehouse architectures across Databricks, Snowflake, and Microsoft Fabric — and decide which platform fits which problem
+Build production pipelines: Lakeflow SDP (formerly DLT), Spark SQL, PySpark, dbt, Snowpark
+Design Unity Catalog and governance structures that hold up at enterprise scale
+Model for both analytics and AI workloads — dimensional models for BI, feature-ready data for retrieval and agents
+Reverse-engineer legacy sources (SAP, Salesforce, Oracle, proprietary core systems) with incomplete documentation and build ingestion that doesn''t break
+Make the buy-vs-build call on ingestion: Fivetran, Airbyte, Lakeflow Connect, custom
+Establish production rigor: data quality expectations, lineage, observability, cost controls, CI/CD
+Present architecture and tradeoffs directly to client technical leaders and executives
+
+How you approach work
+
+You reason from first principles. When a client says ""we need a lakehouse,"" you ask what decisions they''re trying to make before you pick a platform.
+You''re platform-pragmatic. Databricks, Snowflake, and Fabric all have a right answer somewhere — you know which is which and why.
+You default to the simplest thing that works. You know when to reach for a streaming pipeline and when a nightly batch is the right answer.
+You can hold the full system in your head — sources, ingestion, storage, transformation, semantic layer, consumption — and reason across all of them simultaneously.
+You think about cost. A technically elegant solution that burns $40K/month in compute is not a win.
+
+Required Skills
+
+5-8 years of data engineering experience with a focus on production platforms that serve real users
+Deep experience across all three major lakehouse/warehouse platforms: Databricks, Snowflake, and Microsoft Fabric. Not ""I''ve touched them"" — you''ve shipped production workloads on each and can defend platform selection decisions
+Strong fluency in SQL, Python, and PySpark — all three, not two out of three
+Production experience with Lakeflow SDP (or DLT), Unity Catalog, and medallion architecture patterns
+dbt at scale — not just models, but macros, testing strategy, and deployment patterns
+Ingestion architecture — you''ve built pipelines from Salesforce, SAP, and at least one legacy core system that didn''t want to be ingested
+Orchestration — Lakeflow Jobs, Airflow, Prefect, Dagster, or equivalent
+Cloud fluency — AWS, Azure, or Google Cloud Platform (we work across all three)
+Data modeling — dimensional, Data Vault, or OBT — you have opinions and can defend them
+Production mindset: data quality, lineage, observability, cost, CI/CD
+Client-facing presence. You can run a working session with a CDO, explain a tradeoff to a skeptical analyst, and write a clean architecture doc
+
+Preferred Skills
+
+Experience preparing data estates for AI workloads — RAG-ready curation, semantic layers, feature stores
+Streaming experience — Kafka, Kinesis, Structured Streaming, or Fabric Real-Time Intelligence
+Power BI, Tableau, or Looker semantic layer design
+Prior consulting, agency, or multi-client experience
+Contributions to open source in the data tooling space (dbt, Spark, Airflow, Dagster)
+Databricks, Snowflake, or Microsoft certifications"
+2114798921,2026-04-19T19:13:53,2026-04-19T19:32:04.181543,Data Engineer,Altus Consulting Corporation,https://www.linkedin.com/company/altus-consulting-corp.,2026-05-06T19:13:50,"[{'@type': 'Place', 'address': {'@type': 'PostalAddress', 'addressCountry': 'US', 'addressLocality': 'Herndon', 'addressRegion': 'VA', 'streetAddress': None}, 'latitude': 38.977642, 'longitude': -77.384056}]",,,,['FULL_TIME'],https://www.linkedin.com/jobs/view/data-engineer-at-altus-consulting-corporation-4404004505,jobboard,linkedin,linkedin.com,https://media.licdn.com/dms/image/v2/C560BAQE0G-nIKAOE3w/company-logo_200_200/company-logo_200_200/0/1631342506020?e=2147483647&v=beta&t=GBm7S0u_JF0bExg6_bEsIbMxsVXs4Yzz4bNzrHF0S-U,['Herndon'],['Fairfax County'],['Virginia'],['United States'],"['Herndon, Virginia, United States']",['America/New_York'],[38.9695316],[-77.3859479],False,45.0,http://www.altuscc.com,51-200 employees,"Rewarding those who excel.
+Delivering excellent service.",IT Services and IT Consulting,,Northern Virginia,Privately Held,2002,"['Systems Engineering/Architecture', 'Network Engineering/Architecture', 'Software Development', 'Systems Integration', 'Cyber Security', 'Mission Operations', 'and Project Management']","['Northern Virginia, US']","Altus Consulting Corporation was founded in 2002 to provide to our customers the most qualified and highly recommended technical consultants in the industry.  Our 100+ employees have a reputation of providing solutions to difficult problems, and are able to complete the most stringent outsourced IT requirements in support of our customers.
+
+As a small business, Altus provides a range of IT expertise.  Our core competencies are: cyber security, network engineering and architecture, systems engineering, software engineering/development, and systems integration/training.",False,Entry level,False,altus-consulting-corp.,,,True,4404004505,"Altus Consulting is seeking a skilled Data Engineer to join our dynamic team. You will be responsible for designing, developing, and maintaining data pipelines and infrastructure that provide reliable and high-quality data for our clients' analytics needs. You will leverage your understanding of data engineering principles, best practices, and technologies to deliver efficient and scalable solutions.
+
+Responsibilities
+
+Design and develop data pipelines using industry-standard tools and technologies (e.g., Apache Spark, Kafka, Airflow).
+Extract, transform, and load (ETL) data from various sources into data warehouses and lakes.
+Develop and maintain data quality checks and monitoring processes.
+Optimize data pipelines for performance and scalability.
+Collaborate with data scientists and analysts to understand their needs and deliver data that meets their requirements.
+Document data pipelines and processes effectively.
+Stay up-to-date with the latest advancements in data engineering technologies and trends.
+
+Preferred Skills
+
+Strong programming skills (Python, Java, Scala).
+Experience with Big Data technologies (Hadoop, Spark).
+Experience with Cloud platforms (AWS, Azure, GCP).
+Familiarity with data warehousing and data lake technologies.
+Excellent problem-solving and analytical skills.
+Strong communication and collaboration skills.
+Ability to work independently and as part of a team.
+
+Basic Qualifications
+
+Active TS/SCI with poly clearance is required.
+Bachelor's degree in Computer Science, Information Systems, Engineering, or related field (preferred).
+2+ years of experience in data engineering or a related role.
+Understanding of data engineering principles and best practices.
+
+Disclaimer
+
+The information provided in this job description is accurate and truthful to the best of our knowledge. However, it is not intended to be a contract, and we reserve the right to modify the job description at any time.
+
+Altus Consulting is dedicated to diversity and inclusion, building a work environment where everyone feels respected and valued. We firmly believe in equal opportunity, guaranteeing fair and unbiased treatment for all individuals in all aspects of employment, regardless of race, color, religion, national origin, gender, sexual orientation, gender identity, pregnancy, childbirth or related medical conditions, age, protected veteran status, or disability status. We oppose discrimination in any form, and our commitment is evident in every interaction."
+2114774302,2026-04-19T18:26:28,2026-04-19T18:32:26.706467,QA Test Engineer & Data Engineer,SetupBoxs,https://www.linkedin.com/company/setupboxs,2026-05-19T18:26:28,"[{'@type': 'Place', 'address': {'@type': 'PostalAddress', 'addressCountry': 'US', 'addressLocality': 'St Louis', 'addressRegion': 'MO', 'streetAddress': None}, 'latitude': 38.635357, 'longitude': -90.20099}]",,,,['FULL_TIME'],https://www.linkedin.com/jobs/view/qa-test-engineer-data-engineer-at-setupboxs-4403324304,jobboard,linkedin,linkedin.com,https://media.licdn.com/dms/image/v2/D560BAQFtzDIXVB9n4Q/company-logo_200_200/company-logo_200_200/0/1725819270204?e=2147483647&v=beta&t=pUWUpFIrnABCyf5GJNeg2PAcUo7xAUUTwC5vNzitYTw,['St. Louis'],,['Missouri'],['United States'],"['St. Louis, Missouri, United States']",['America/Chicago'],[38.6280278],[-90.1910154],False,4.0,www.setupboxs.com,11-50 employees,let’s compete together,IT Services and IT Consulting,,,Partnership,,[''],[],,False,Entry level,True,setupboxs,,,,4403324304,"Software Engineer & DevOps Engineer – St. Louis, Missouri (On-Site)
+Full-Time | Immediate Onboarding
+We are a dynamic IT consulting firm dedicated to supporting and advancing emerging technology professionals across the United States. We are currently onboarding candidates for multiple exciting on-site opportunities in St. Louis, Missouri.
+Open Positions:
+· IT Operations Engineer
+· Cloud Security Engineer
+· Infrastructure Engineer
+· Site Reliability Engineer (SRE)
+· Security Operations Center (SOC) Analyst
+· Data Engineer
+· Platform Engineer
+· AI Engineer
+· Business Intelligence (BI) Analyst
+· QA Engineer
+What We Provide:
+· Comprehensive support including accommodation and job placement
+· H-1B and Green Card sponsorship pathways
+Benefits of Joining:
+· Fully arranged accommodation facilities
+· Soft skills training and career development sessions
+Interested in applying?
+Secure your slot by completing the form below:
+Form: https://forms.gle/Z5V2JWHnGzJkom9B8"
+2114774283,2026-04-19T18:00:53,2026-04-19T18:32:24.526451,Senior Data Engineer,Inside Higher Ed,https://www.linkedin.com/company/inside-higher-ed,2026-05-19T18:00:44,"[{'@type': 'Place', 'address': {'@type': 'PostalAddress', 'addressCountry': 'US', 'addressLocality': 'Albany', 'addressRegion': 'GA', 'streetAddress': None}, 'latitude': 31.57846, 'longitude': -84.155876}]",,,,['FULL_TIME'],https://www.linkedin.com/jobs/view/senior-data-engineer-at-inside-higher-ed-4403891637,jobboard,linkedin,linkedin.com,https://media.licdn.com/dms/image/v2/D4E0BAQGcgQ72Kb4Qdw/company-logo_200_200/company-logo_200_200/0/1719523774072?e=2147483647&v=beta&t=SwOTwcNS4gPQJy71EDxC9HAhY3RBCfnvLPm3TJMLw6U,['Albany'],['Dougherty County'],['Georgia'],['United States'],"['Albany, Georgia, United States']",['America/New_York'],[31.5782062],[-84.1556809],False,852.0,http://www.insidehighered.com,51-200 employees,"The latest news, opinion, jobs & resources for all of higher education.",Online Audio and Video Media,555726.0,"Washington, District of Columbia",Privately Held,2004,"['careers', 'jobs', 'higher ed', 'editorial', 'news', 'colleges', 'universities', 'career advice', 'and higher education']","['1150 Connecticut Ave NW, Washington, District of Columbia, US']","Inside Higher Ed is the leading source for the latest news, analysis, and services for the entire higher education community. We deliver independent news and analysis that informs the world about higher education, while providing essential tools and services to help organizations and professionals be more effective.
+
+Go to www.insidehighered.com/newsletter/signup and sign up for our free Daily News Update email.
+
+Higher Education News - www.insidehighered.com
+
+Jobs & Careers - careers.insidehighered.com",False,Mid-Senior level,False,inside-higher-ed,,,False,4403891637,"Job Title: Senior Data Engineer
+
+Location: Albany State Rec. Location
+
+Regular/Temporary: Regular
+
+Full/Part Time: Full-Time
+
+Job ID: 296328
+
+About Us
+
+Albany State University is a fully accredited senior unit of the University System of Georgia. Employees receive benefits provided by the University System of Georgia, including, but not limited to, medical and major medical insurance, group life insurance, participation in the Georgia Teachers' Retirement System, Optional Retirement Plan (Faculty and exempt employees only), Social Security and Tuition Assistance Program after six months of employment.
+
+Location
+
+Our West Campus is located at 2400 Gillionville Road, Albany, GA 31707. Our East Campus is located at 504 College Drive, Albany, GA 31705. The Human Resources office for both campuses is located on the West Campus in Building K, Suite 209.
+
+Job Summary
+
+The Senior Data Engineer serves as a technical leader within the Office of Institutional Research & Effectiveness and plays a central role in advancing Albany State University's enterprise data infrastructure and institutional analytics capabilities. This position is responsible for designing, implementing, and maintaining scalable data architecture that supports institutional reporting, analytics, regulatory compliance, and data-driven decision-making across the university.
+
+The Senior Data Engineer leads the development of modern data pipelines, enterprise data models, and cloud-based analytics platforms that integrate data from multiple institutional systems into a centralized data environment. This role supports the university's data modernization strategy by enabling reliable data access, advanced analytics, and enterprise reporting used by university leadership, academic units, and administrative departments.
+
+Working collaboratively with Institutional Research staff, Information Technology Services, academic and administrative departments, and external partners, the Senior Data Engineer helps establish sustainable data engineering practices that ensure institutional data is accurate, secure, accessible, and aligned with university information governance standards.
+
+This limited term position is funded through Title III sponsored funds. Continuation of employment is based upon availability of funds.
+
+Sponsorship is not available for this position.
+
+Responsibilities
+
+Data Architecture and Engineering
+
+Lead the design and evolution of the university's enterprise data architecture supporting institutional analytics, compliance reporting, and strategic planning.
+Design, develop, and maintain scalable data architectures including data warehouses, data lakes, and integration frameworks.
+Build and manage automated ETL/ELT data pipelines that ingest, transform, and load data from enterprise systems into centralized analytics platforms.
+Develop and maintain robust data models to support institutional reporting, dashboards, and advanced analytics.
+Write, optimize, and maintain complex SQL queries, views, and stored procedures to ensure high-performance data retrieval.
+
+Cloud Data Platform Development
+
+Develop and maintain cloud-based data infrastructure using Microsoft Azure data services.
+Implement modern data engineering solutions using technologies such as Azure Data Factory, Azure Synapse Analytics, and Azure SQL.
+Integrate data across institutional platforms including student information systems, learning management systems, financial systems, HR systems, and other operational databases.
+
+Institutional Reporting and Analytics Support
+
+Support the university's enterprise reporting ecosystem used for dashboards, analytics, and decision-support tools.
+Enable data infrastructure supporting federal, state, and accreditation reporting including IPEDS, SACSCOC, and University System of Georgia reporting requirements.
+Collaborate with Institutional Research analysts to support institutional performance monitoring, predictive analytics, and strategic planning initiatives.
+
+Data Governance and Quality
+
+Implement data quality monitoring, validation, and integrity controls to ensure reliable institutional data.
+Support institutional data governance initiatives including development of data standards, metadata documentation, and access controls.
+Ensure compliance with institutional policies and applicable regulations related to data privacy and security including FERPA.
+
+Collaboration and Technical Leadership
+
+Provide technical guidance and mentorship to Institutional Research staff and analysts.
+Collaborate with Information Technology Services and functional departments to support data integration and enterprise reporting needs.
+Coordinate with external consultants and vendors to support enterprise data solutions.
+Maintain comprehensive technical documentation related to data architecture, data pipelines, and governance processes.
+
+Additional Responsibilities
+
+Participate in institutional data modernization initiatives supporting student success, operational efficiency, and institutional effectiveness.
+Perform other duties as assigned.
+
+Required Qualifications
+
+Bachelor's degree in Computer Science, Information Systems, Data Engineering, or a related field, or equivalent professional experience.
+Minimum of five (5) years of professional experience in data engineering, data architecture, or related technical roles.
+Strong proficiency in SQL and relational database technologies.
+Experience designing and managing data pipelines and enterprise data architectures.
+Experience working with cloud-based data platforms.
+
+Preferred Qualifications
+
+Master's degree in Computer Science, Data Science, Information Systems, or a related field. 
+Experience with Microsoft Azure data services (Azure Data Factory, Synapse Analytics, Azure SQL, etc.). 
+Experience working within a higher education data environment. 
+Familiarity with institutional reporting requirements such as IPEDS, accreditation reporting, or state reporting. 
+Experience with business intelligence and data visualization tools such as Power BI. 
+Experience with programming or scripting languages such as Python. 
+
+Proposed Salary
+
+Salary is commensurate with education and experience.
+
+Required Documents to Attach
+
+Cover letter.
+
+Resume.
+
+Transcripts.
+
+A list of at least 3 professional references with their contact information.
+
+Knowledge, Skills, & Abilities
+
+Data warehouse architecture and dimensional data modeling.
+
+Cloud-based data engineering platforms and analytics infrastructure.
+
+Institutional data governance, privacy, and security practices.
+
+Advanced SQL development and data integration expertise.
+
+Strong analytical and problem-solving skills.
+
+Effective written and verbal communication skills.
+
+Strong collaboration and documentation capabilities.
+
+Ability to design scalable enterprise data solutions.
+
+Ability to translate institutional data requirements into technical architecture.
+
+Ability to manage multiple projects and priorities in a collaborative environment.
+
+Contact Information
+
+For more information or questions about a job posting, please contact the Office of Human Resources at (229) 500-2026, or by email at hrasu@asurams.edu. For technical support, please call the USG Service Desk at (877) 251-2644, or by email at support@usg.edu.
+
+USG Core Values
+
+The University System of Georgia is comprised of our 26 institutions of higher education and learning as well as the System Office. Our USG Statement of Core Values are Integrity, Excellence, Accountability, and Respect. These values serve as the foundation for all that we do as an organization, and each USG community member is responsible for demonstrating and upholding these standards. More details on the USG Statement of Core Values and Code of Conduct are available in USG Board Policy 8.2.18.1.2 and can be found online at https://www.usg.edu/policymanual/section8/C224/#p8.2.18_personnel_conduct.
+
+Additionally, USG supports Freedom of Expression as stated in Board Policy 6.5 Freedom of Expression and Academic Freedom found online at https://www.usg.edu/policymanual/section6/C2653.
+
+Institutional Values
+
+Excellence
+
+We achieve outcomes of the highest quality, hold ourselves accountable to the highest standard and are committed to continuous improvement in University programs and services.
+
+Respect
+
+We are directed by tenets of ethics, treating other with courteous regard, and being civil in our interactions.
+
+Community
+
+We strive to build community and value a good mindset.
+
+Teamwork
+
+We seek partnerships within the University and community. We practice a supportive spirit that results in the implementation of plans, actions and shared results.
+
+Learning
+
+We cultivate a practice of global pedagogies in a learning environment.
+
+Conditions of Employment
+
+All selected candidates are required to successfully pass a Background Check review prior to starting with Albany State University.
+
+Certain positions may also require the selected candidate to submit to or have:
+
+a credit check completed for ""Positions of Trust"" and/or approved departmental purchase card usage
+a motor vehicle report for positions that require driving an Albany State University vehicle
+a successful pre-employment drug test
+
+Equal Employment Opportunity
+
+Albany State University is an Equal Employment Opportunity Employer. The University is committed to maintaining a fair and respectful environment for living, working, and studying. To that end, and in accordance with federal and state law, Board of Regents policy, and University policy, the University prohibits harassment of or discrimination against any person because of race, color, sex (including sexual harassment, pregnancy, and medical conditions related to pregnancy), sexual orientation, gender identity, gender expression, ethnicity or national origin, religion, age, genetic information, disability, or veteran or military status by any member of the ASU Community on campus, in connection with a University program or activity, or in a manner that creates a hostile environment for members of the ASU community.
+
+For questions or more detailed information regarding this policy please contact the Albany State University Office of Human Resources at (229) 500-2026. For individuals requiring disability-related accommodations for participation in any event or to obtain print materials in an alternative format, please contact the Disability Resource Center at 229-500-3442."
