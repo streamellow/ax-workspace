@@ -14,6 +14,8 @@ from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
+import requests
+from bs4 import BeautifulSoup
 from openai import OpenAI
 from dotenv import load_dotenv
 load_dotenv()
@@ -69,17 +71,12 @@ def strip_html(html):
     return text.strip()
 
 
-def get_email_body(payload, max_chars=5000):
-    """이메일 본문 추출 — plain text 우선, 없으면 HTML 태그 제거"""
+def get_email_parts(payload, max_chars=5000):
+    """이메일에서 텍스트 본문과 raw HTML 모두 추출"""
     plain = ""
     html = ""
 
-    parts = payload.get("parts", [])
-    if not parts:
-        parts = [payload]
-
-    # 중첩 multipart 포함 재귀 탐색
-    stack = list(parts)
+    stack = list(payload.get("parts", []) or [payload])
     while stack:
         part = stack.pop()
         mime = part.get("mimeType", "")
@@ -95,8 +92,8 @@ def get_email_body(payload, max_chars=5000):
         elif mime == "text/html" and not html:
             html = decoded
 
-    body = plain if plain else strip_html(html)
-    return body[:max_chars]
+    body_text = (plain if plain else strip_html(html))[:max_chars]
+    return body_text, html
 
 
 def fetch_emails(service, max_results=50):
@@ -118,7 +115,7 @@ def fetch_emails(service, max_results=50):
         ).execute()
 
         headers = {h["name"]: h["value"] for h in msg_detail["payload"]["headers"]}
-        body = get_email_body(msg_detail["payload"], max_chars=5000)
+        body, html_body = get_email_parts(msg_detail["payload"])
 
         emails.append({
             "id": msg["id"],
@@ -126,6 +123,7 @@ def fetch_emails(service, max_results=50):
             "sender": headers.get("From", ""),
             "date": headers.get("Date", ""),
             "body": body,
+            "html_body": html_body,
         })
 
     print(f"\n총 {len(emails)}개 이메일 로드 완료.")
@@ -150,6 +148,10 @@ def classify_emails_with_claude(emails):
 분류 카테고리:
 {chr(10).join(f"- {c}" for c in CATEGORIES)}
 
+분류 기준:
+- 채용공고 알림, 면접 안내, 입사 지원 관련 메일 → 업무/비즈니스
+- 정기 구독 뉴스레터, 마케팅 홍보 메일 → 뉴스레터/마케팅
+
 이메일 목록:
 {email_list_text}
 
@@ -163,6 +165,7 @@ def classify_emails_with_claude(emails):
     response = client.chat.completions.create(
         model="gpt-4o-mini",
         max_tokens=4096,
+        temperature=0,
         messages=[{"role": "user", "content": prompt}]
     )
 
@@ -256,15 +259,17 @@ def extract_job_postings(business_emails):
       "job_title": "직무명",
       "company": "회사명",
       "location": "지역 (재택근무 등 포함, 모르면 null)",
-      "source_email": "출처 이메일 제목"
+      "source_email": "출처 이메일 제목",
+      "url": "본문에 포함된 공고 URL (없으면 null)"
     }}
   ]
 }}"""
 
     print("채용공고 분류 및 정리 중...")
     response = client.chat.completions.create(
-        model="gpt-4o-mini",
-        max_tokens=4096,
+        model="gpt-4o",
+        max_tokens=8192,
+        temperature=0,
         messages=[{"role": "user", "content": prompt}]
     )
 
@@ -274,7 +279,167 @@ def extract_job_postings(business_emails):
         if text.startswith("json"):
             text = text[4:]
 
-    return json.loads(text)
+    # 잘린 JSON 복구: 마지막 완성된 항목까지만 파싱
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        last = text.rfind("},")
+        if last != -1:
+            text = text[:last+1] + "\n  ]\n}"
+            try:
+                return json.loads(text)
+            except json.JSONDecodeError:
+                pass
+        print("  경고: 채용공고 JSON 파싱 실패 — 결과를 건너뜁니다.")
+        return {"job_postings": []}
+
+
+def extract_job_links(business_emails, job_postings):
+    """채용공고 URL 결정 (우선순위: OpenAI추출 → HTML링크 → plain text regex)"""
+
+    # 1순위: extract_job_postings 에서 OpenAI가 뽑은 url 필드 사용
+    # 2순위: 이메일 HTML에서 <a> 태그 텍스트 매칭
+    # 3순위: 이메일 plain text에서 URL 정규식 추출 후 직무명 주변 URL 사용
+
+    # HTML 링크 맵 구성
+    html_link_map = {}
+    for email in business_emails:
+        html = email.get("html_body", "")
+        if not html:
+            continue
+        soup = BeautifulSoup(html, "html.parser")
+        for a in soup.find_all("a", href=True):
+            text = " ".join(a.stripped_strings)
+            href = a["href"]
+            if href.startswith("http") and text:
+                html_link_map[text.lower()] = href
+
+    # plain text URL 목록
+    plain_urls = []
+    for email in business_emails:
+        body = email.get("body", "")
+        found = re.findall(r'https?://[^\s\)\]\>\"\']+', body)
+        plain_urls.extend(found)
+
+    result = []
+    for posting in job_postings:
+        title = posting.get("job_title", "").lower()
+
+        # 1순위: OpenAI가 추출한 url
+        url = posting.get("url") or None
+
+        # 2순위: HTML 링크 텍스트 매칭
+        if not url:
+            for link_text, href in html_link_map.items():
+                if title in link_text or link_text in title:
+                    url = href
+                    break
+
+        # 3순위: plain text에서 직무명 단어와 가장 가까운 URL
+        if not url and plain_urls:
+            title_words = set(title.split())
+            for pu in plain_urls:
+                if any(w in pu.lower() for w in title_words if len(w) > 3):
+                    url = pu
+                    break
+            if not url:
+                # 직무 관련 키워드가 포함된 URL 선택
+                job_keywords = ["job", "jobs", "career", "careers", "position", "recruit"]
+                for pu in plain_urls:
+                    if any(kw in pu.lower() for kw in job_keywords):
+                        url = pu
+                        break
+
+        result.append({**posting, "url": url})
+    return result
+
+
+def scrape_job_page(url):
+    """채용공고 페이지에서 굵은 글씨(항목명) 및 본문 섹션 추출"""
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/124.0.0.0 Safari/537.36"
+        ),
+        "Accept-Language": "ko-KR,ko;q=0.9,en;q=0.8",
+    }
+    try:
+        resp = requests.get(url, headers=headers, timeout=15, allow_redirects=True)
+        resp.raise_for_status()
+        soup = BeautifulSoup(resp.text, "html.parser")
+
+        for tag in soup(["script", "style", "nav", "footer", "header", "iframe"]):
+            tag.decompose()
+
+        sections = []
+        seen = set()
+        for tag in soup.find_all(["h1", "h2", "h3", "h4", "strong", "b"]):
+            text = tag.get_text(strip=True)
+            if not text or len(text) < 2 or len(text) > 150:
+                continue
+            if text in seen:
+                continue
+            seen.add(text)
+
+            # 해당 항목 바로 다음 텍스트(설명) 수집
+            sibling_text = ""
+            for sib in tag.find_next_siblings():
+                sib_tag = sib.name
+                if sib_tag in ["h1", "h2", "h3", "h4", "strong", "b"]:
+                    break
+                t = sib.get_text(separator=" ", strip=True)
+                if t:
+                    sibling_text = t[:300]
+                    break
+
+            sections.append({"heading": text, "content": sibling_text})
+
+        return sections[:25]
+
+    except Exception as e:
+        return [{"heading": "스크래핑 실패", "content": str(e)}]
+
+
+def display_job_page_details(postings_with_urls):
+    """각 채용공고 페이지 접속 후 항목별 내용 출력"""
+    print("\n" + "=" * 60)
+    print("🔍 채용공고 상세 정보 (공고 페이지)")
+    print("=" * 60)
+
+    for i, posting in enumerate(postings_with_urls, 1):
+        title   = posting.get("job_title", "")
+        company = posting.get("company", "")
+        url     = posting.get("url")
+
+        print(f"\n[{i}] {title} — {company}")
+
+        if not url:
+            print("  링크를 찾을 수 없습니다.")
+            print("  " + "-" * 56)
+            continue
+
+        print(f"  URL: {url}")
+        print(f"  페이지 로딩 중...")
+        sections = scrape_job_page(url)
+
+        if not sections:
+            print("  내용을 가져올 수 없습니다.")
+        else:
+            for sec in sections:
+                heading = sec["heading"]
+                content = sec["content"]
+                print(f"\n  ■ {heading}")
+                if content:
+                    # 긴 내용은 줄바꿈 처리
+                    for line in content.split("\n"):
+                        line = line.strip()
+                        if line:
+                            print(f"    {line[:100]}")
+
+        print("\n  " + "-" * 56)
+
+    print("=" * 60)
 
 
 def print_job_postings_table(job_data):
@@ -380,15 +545,22 @@ def print_report(emails, classifications):
 
         print("=" * 60)
 
-    # 채용공고 표
+    # 채용공고 표 + 상세 정보
     if business_items:
         job_data = extract_job_postings(business_items)
-        if job_data.get("job_postings"):
+        postings = job_data.get("job_postings", [])
+        if postings:
             print("\n" + "=" * 60)
             print("📋 채용공고 정리")
             print("=" * 60)
             print_job_postings_table(job_data)
             print("=" * 60)
+
+            # 채용공고별 링크 추출
+            postings_with_urls = extract_job_links(business_items, postings)
+
+            # 공고 페이지 접속 후 항목별 내용 출력
+            display_job_page_details(postings_with_urls)
 
 
 def main():
