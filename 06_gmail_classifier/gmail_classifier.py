@@ -354,8 +354,76 @@ def extract_job_links(business_emails, job_postings):
     return result
 
 
+def send_to_slack(webhook_url: str, summaries: list) -> list[str]:
+    """업무/비즈니스 메일 요약을 Slack Incoming Webhook으로 전송.
+    성공한 subject 목록을 반환, 실패 시 예외 발생."""
+    errors = []
+
+    # 전체 헤더 메시지
+    header = {
+        "blocks": [
+            {
+                "type": "header",
+                "text": {
+                    "type": "plain_text",
+                    "text": f"💼 업무/비즈니스 메일 요약  ({len(summaries)}건)",
+                    "emoji": True,
+                },
+            }
+        ]
+    }
+    resp = requests.post(webhook_url, json=header, timeout=10)
+    resp.raise_for_status()
+
+    # 이메일별 개별 메시지
+    for s in summaries:
+        subject = s.get("subject", "(제목 없음)")
+        sender  = s.get("sender", "")
+        date    = s.get("date", "")
+        detail  = s.get("detail_summary", "")
+        points  = s.get("key_points", [])
+        action  = s.get("action_required")
+
+        blocks = [
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"*{subject}*\n📨 {sender}\n🗓 {date}",
+                },
+            },
+            {"type": "divider"},
+            {
+                "type": "section",
+                "text": {"type": "mrkdwn", "text": detail or "(요약 없음)"},
+            },
+        ]
+
+        if points:
+            bullet = "\n".join(f"• {p}" for p in points)
+            blocks.append({
+                "type": "section",
+                "text": {"type": "mrkdwn", "text": f"*핵심 내용*\n{bullet}"},
+            })
+
+        if action:
+            blocks.append({
+                "type": "section",
+                "text": {"type": "mrkdwn", "text": f"⚠️ *조치 필요:* {action}"},
+            })
+
+        try:
+            r = requests.post(webhook_url, json={"blocks": blocks}, timeout=10)
+            r.raise_for_status()
+        except Exception as e:
+            errors.append(f"{subject}: {e}")
+
+    return errors
+
+
 def scrape_job_page(url):
     """채용공고 페이지에서 굵은 글씨(항목명) 및 본문 섹션 추출"""
+    import time
     headers = {
         "User-Agent": (
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -382,11 +450,9 @@ def scrape_job_page(url):
                 continue
             seen.add(text)
 
-            # 해당 항목 바로 다음 텍스트(설명) 수집
             sibling_text = ""
             for sib in tag.find_next_siblings():
-                sib_tag = sib.name
-                if sib_tag in ["h1", "h2", "h3", "h4", "strong", "b"]:
+                if sib.name in ["h1", "h2", "h3", "h4", "strong", "b"]:
                     break
                 t = sib.get_text(separator=" ", strip=True)
                 if t:
@@ -401,43 +467,47 @@ def scrape_job_page(url):
         return [{"heading": "스크래핑 실패", "content": str(e)}]
 
 
-def display_job_page_details(postings_with_urls):
-    """각 채용공고 페이지 접속 후 항목별 내용 출력"""
+def display_job_page_details(postings_with_urls, batch_size=10, delay=30):
+    """채용공고 페이지 스크래핑 — 10개마다 30초 대기"""
+    import time
+
     print("\n" + "=" * 60)
     print("🔍 채용공고 상세 정보 (공고 페이지)")
     print("=" * 60)
 
+    total = len(postings_with_urls)
     for i, posting in enumerate(postings_with_urls, 1):
-        title   = posting.get("job_title", "")
-        company = posting.get("company", "")
-        url     = posting.get("url")
+        title    = posting.get("job_title", "")
+        company  = posting.get("company", "")
+        location = posting.get("location", "")
+        url      = posting.get("url")
 
-        print(f"\n[{i}] {title} — {company}")
+        print(f"\n[{i}/{total}] {title} — {company} / {location}")
 
         if not url:
-            print("  링크를 찾을 수 없습니다.")
+            print("  링크: 찾을 수 없음")
             print("  " + "-" * 56)
-            continue
-
-        print(f"  URL: {url}")
-        print(f"  페이지 로딩 중...")
-        sections = scrape_job_page(url)
-
-        if not sections:
-            print("  내용을 가져올 수 없습니다.")
         else:
-            for sec in sections:
-                heading = sec["heading"]
-                content = sec["content"]
-                print(f"\n  ■ {heading}")
-                if content:
-                    # 긴 내용은 줄바꿈 처리
-                    for line in content.split("\n"):
-                        line = line.strip()
-                        if line:
-                            print(f"    {line[:100]}")
+            print(f"  링크: {url}")
+            print("  페이지 로딩 중...")
+            sections = scrape_job_page(url)
 
-        print("\n  " + "-" * 56)
+            if not sections:
+                print("  내용을 가져올 수 없습니다.")
+            else:
+                for sec in sections:
+                    print(f"\n  ■ {sec['heading']}")
+                    if sec["content"]:
+                        for line in sec["content"].split("\n"):
+                            line = line.strip()
+                            if line:
+                                print(f"    {line[:100]}")
+            print("\n  " + "-" * 56)
+
+        # 배치 단위로 대기 (마지막 항목 제외)
+        if i % batch_size == 0 and i < total:
+            print(f"\n  ⏳ {batch_size}개 완료 — {delay}초 대기 후 계속합니다...")
+            time.sleep(delay)
 
     print("=" * 60)
 

@@ -30,7 +30,20 @@ export ANTHROPIC_API_KEY="your-api-key"
 set ANTHROPIC_API_KEY=your-api-key
 ```
 
-## 4. 실행
+## 4. Slack 알림 설정 (선택)
+
+1. [Slack API](https://api.slack.com/apps) → **Create New App** → **From scratch**
+2. **Incoming Webhooks** 활성화 → **Add New Webhook to Workspace**
+3. 알림 받을 채널 선택 후 Webhook URL 복사
+4. `.env` 파일에 추가:
+
+```
+SLACK_WEBHOOK_URL=https://hooks.slack.com/services/XXX/YYY/ZZZ
+```
+
+> `.env`가 없으면 Streamlit 앱 사이드바의 Webhook URL 입력란에 직접 붙여넣어도 됩니다.
+
+## 5. 실행
 
 ```bash
 cd 06_gmail_classifier
