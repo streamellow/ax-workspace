@@ -1,0 +1,11 @@
+services:
+  scheduler:
+    build: .
+    env_file: .env
+    environment:
+      - TZ=Asia/Seoul
+    volumes:
+      - ./credentials.json:/app/credentials.json:ro
+      - ./token.json:/app/token.json
+      - ./logs:/app/logs
+    restart: unless-stopped

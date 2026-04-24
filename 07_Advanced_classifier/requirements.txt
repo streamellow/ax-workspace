@@ -1,0 +1,12 @@
+google-auth-oauthlib
+google-auth-httplib2
+google-api-python-client
+openai
+pydantic
+requests
+beautifulsoup4
+python-dotenv
+schedule
+pdfplumber
+pymupdf
+pytesseract
