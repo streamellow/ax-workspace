@@ -6,6 +6,11 @@ Gmail API → raw Email 리스트 → Classification + JobPosting 추출
 import re
 import base64
 import json
+import email
+import imaplib
+import datetime
+from email.header import decode_header, make_header
+from email.utils import parsedate_to_datetime
 from openai import OpenAI
 from bs4 import BeautifulSoup
 
@@ -42,10 +47,23 @@ def _get_email_parts(payload: dict, max_chars: int = 5000) -> tuple[str, str]:
     return (plain if plain else _strip_html(html))[:max_chars], html
 
 
-def fetch_emails(service, max_results: int = 30) -> list[Email]:
-    result = service.users().messages().list(
-        userId="me", labelIds=["INBOX"], maxResults=max_results
-    ).execute()
+def _parse_email_date(date_str: str) -> datetime.datetime | None:
+    try:
+        return parsedate_to_datetime(date_str).replace(tzinfo=None)
+    except Exception:
+        return None
+
+
+def fetch_emails(
+    service,
+    max_results: int = 50,
+    since_dt: datetime.datetime | None = None,
+) -> list[Email]:
+    params: dict = {"userId": "me", "labelIds": ["INBOX"], "maxResults": max_results}
+    if since_dt:
+        params["q"] = f"after:{int(since_dt.timestamp())}"
+
+    result = service.users().messages().list(**params).execute()
 
     emails = []
     for msg in result.get("messages", []):
@@ -62,6 +80,75 @@ def fetch_emails(service, max_results: int = 30) -> list[Email]:
             body=body,
             html_body=html_body,
         ))
+
+    if since_dt:
+        emails = [
+            e for e in emails
+            if (dt := _parse_email_date(e.date)) and dt >= since_dt
+        ]
+
+    return emails
+
+
+def fetch_emails_imap(
+    conn: imaplib.IMAP4_SSL,
+    max_results: int = 50,
+    since_dt: datetime.datetime | None = None,
+) -> list[Email]:
+    """Daum IMAP에서 받은편지함 최신 메일을 가져와 Email 목록으로 반환."""
+    conn.select("INBOX")
+    if since_dt:
+        date_str = since_dt.strftime("%d-%b-%Y")
+        _, data = conn.search(None, f'SINCE "{date_str}"')
+    else:
+        _, data = conn.search(None, "ALL")
+    all_ids = data[0].split()
+    target_ids = all_ids[-max_results:][::-1]  # 최신순
+
+    emails = []
+    for uid in target_ids:
+        _, msg_data = conn.fetch(uid, "(RFC822)")
+        raw = msg_data[0][1]
+        msg = email.message_from_bytes(raw)
+
+        subject = str(make_header(decode_header(msg.get("Subject", "(제목 없음)"))))
+        sender  = str(make_header(decode_header(msg.get("From", ""))))
+        date    = msg.get("Date", "")
+
+        plain, html_body = "", ""
+        if msg.is_multipart():
+            for part in msg.walk():
+                mime = part.get_content_type()
+                charset = part.get_content_charset() or "utf-8"
+                if mime == "text/plain" and not plain:
+                    plain = part.get_payload(decode=True).decode(charset, errors="ignore")
+                elif mime == "text/html" and not html_body:
+                    html_body = part.get_payload(decode=True).decode(charset, errors="ignore")
+        else:
+            charset = msg.get_content_charset() or "utf-8"
+            payload = msg.get_payload(decode=True).decode(charset, errors="ignore")
+            if msg.get_content_type() == "text/html":
+                html_body = payload
+            else:
+                plain = payload
+
+        body = (plain if plain else _strip_html(html_body))[:5000]
+        emails.append(Email(
+            id=uid.decode(),
+            subject=subject,
+            sender=sender,
+            date=date,
+            body=body,
+            html_body=html_body,
+        ))
+    conn.logout()
+
+    if since_dt:
+        emails = [
+            e for e in emails
+            if (dt := _parse_email_date(e.date)) and dt >= since_dt
+        ]
+
     return emails
 
 
@@ -97,35 +184,65 @@ def classify_emails(emails: list[Email]) -> list[Classification]:
     return [Classification(**c) for c in json.loads(text)]
 
 
+def _extract_html_links(html: str, limit: int = 60) -> str:
+    """HTML에서 앵커 링크를 추출해 '라벨: URL' 형식 문자열로 반환."""
+    if not html:
+        return ""
+    soup = BeautifulSoup(html, "html.parser")
+    lines = []
+    seen: set[str] = set()
+    trivial = ("unsubscribe", "수신거부", "mailto:", "tel:", "facebook.com",
+                "twitter.com", "instagram.com", "youtube.com")
+    for a in soup.find_all("a", href=True):
+        href = a["href"]
+        if not href.startswith("http"):
+            continue
+        if any(t in href.lower() for t in trivial):
+            continue
+        if href in seen:
+            continue
+        seen.add(href)
+        label = " ".join(a.stripped_strings).strip()
+        lines.append(f"  - {label or '(링크)'}: {href}")
+        if len(lines) >= limit:
+            break
+    return "\nHTML 링크 목록:\n" + "\n".join(lines) if lines else ""
+
+
 def extract_job_postings(business_emails: list[Email]) -> list[JobPosting]:
     client = OpenAI()
     items = ""
     for i, e in enumerate(business_emails):
-        items += f"\n[이메일 {i+1}]\n제목: {e.subject}\n발신자: {e.sender}\n날짜: {e.date}\n본문: {e.body}\n---"
+        html_links = _extract_html_links(e.html_body)
+        items += (
+            f"\n[이메일 {i+1}]\n제목: {e.subject}\n발신자: {e.sender}\n날짜: {e.date}"
+            f"\n본문: {e.body}{html_links}\n---"
+        )
 
-    prompt = f"""다음 이메일 본문에서 채용공고 항목을 하나씩 모두 추출해주세요.
-
-규칙:
-- 이메일 한 통에 여러 채용공고가 나열된 경우 각 공고를 개별 항목으로 추출하세요.
-- 직무명, 회사명, 지역이 본문에 명시된 그대로 추출하세요.
-- 재택근무·혼합근무 등 근무형태가 지역에 표기된 경우 그대로 포함하세요.
-- 채용공고가 아닌 일반 업무 메일은 건너뜁니다.
-
-이메일 목록:
-{items}
-
-모든 채용공고를 추출하여 다음 JSON 형식으로만 응답하세요 (다른 텍스트 없이):
-{{
-  "job_postings": [
-    {{
-      "job_title": "직무명",
-      "company": "회사명",
-      "location": "지역 (모르면 null)",
-      "source_email": "출처 이메일 제목",
-      "url": "본문에 포함된 공고 URL (없으면 null)"
-    }}
-  ]
-}}"""
+    prompt = (
+        "다음 이메일 본문에서 채용공고 항목을 하나씩 모두 추출해주세요.\n\n"
+        "규칙:\n"
+        "- 이메일 한 통에 여러 채용공고가 나열된 경우 각 공고를 개별 항목으로 추출하세요.\n"
+        "- 직무명, 회사명, 지역이 본문에 명시된 그대로 추출하세요.\n"
+        "- 재택근무·혼합근무 등 근무형태가 지역에 표기된 경우 그대로 포함하세요.\n"
+        "- 채용공고가 아닌 일반 업무 메일은 건너뜁니다.\n"
+        "- HTML 링크 목록이 제공된 경우, 각 공고의 제목·회사명과 가장 잘 맞는 링크를 url로 지정하세요.\n"
+        "- 링크가 명확히 매칭되지 않더라도, 채용 관련 포털(사람인·잡코리아·원티드 등) URL이 있으면 url에 넣으세요.\n\n"
+        f"이메일 목록:\n{items}\n\n"
+        "모든 채용공고를 추출하여 다음 JSON 형식으로만 응답하세요 (다른 텍스트 없이):\n"
+        "{\n"
+        '  "job_postings": [\n'
+        "    {\n"
+        '      "job_title": "직무명",\n'
+        '      "company": "회사명",\n'
+        '      "location": "지역 (모르면 null)",\n'
+        '      "source_email": "출처 이메일 제목 (정확히 복사)",\n'
+        '      "url": "공고 URL (본문 또는 HTML 링크 목록에서, 없으면 null)",\n'
+        '      "deadline": "마감일 YYYY-MM-DD 형식 (본문에서 추출, 없으면 null)"\n'
+        "    }\n"
+        "  ]\n"
+        "}"
+    )
 
     response = client.chat.completions.create(
         model="gpt-4o", max_tokens=8192, temperature=0,
@@ -136,46 +253,127 @@ def extract_job_postings(business_emails: list[Email]) -> list[JobPosting]:
     return [JobPosting(**p) for p in data.get("job_postings", [])]
 
 
-def resolve_job_urls(business_emails: list[Email], postings: list[JobPosting]) -> list[JobPosting]:
-    """HTML <a> 태그 및 plain text 정규식으로 URL 보완 (3단계 우선순위)"""
-    html_link_map: dict[str, str] = {}
-    for e in business_emails:
-        if not e.html_body:
-            continue
-        soup = BeautifulSoup(e.html_body, "html.parser")
-        for a in soup.find_all("a", href=True):
-            label = " ".join(a.stripped_strings).lower()
-            href = a["href"]
-            if href.startswith("http") and label:
-                html_link_map[label] = href
+PORTAL_DOMAINS = ("saramin.co.kr", "jobkorea.co.kr", "wanted.co.kr",
+                  "linkareer.com", "incruit.com", "rallit.com", "jumpit.co.kr")
+PORTAL_KWS = ("saramin", "jobkorea", "wanted", "linkareer", "incruit",
+               "rallit", "jumpit", "job", "jobs", "career", "careers",
+               "position", "recruit")
+_TRIVIAL_HREF = ("unsubscribe", "수신거부", "mailto:", "tel:",
+                 "facebook.com", "twitter.com", "instagram.com", "youtube.com")
 
-    plain_urls: list[str] = []
+
+def resolve_job_urls(business_emails: list[Email], postings: list[JobPosting]) -> list[JobPosting]:
+    """HTML <a> 태그 및 plain text 정규식으로 URL 보완.
+    source_email을 기준으로 해당 메일의 링크를 우선 탐색한다."""
+
+    # ── 이메일별 링크 목록 구축 ────────────────────────────────────────────
+    # subject → [(label, href), ...]  (순서 보존)
+    links_by_subject: dict[str, list[tuple[str, str]]] = {}
+    plain_by_subject: dict[str, list[str]] = {}
+
     for e in business_emails:
-        plain_urls.extend(re.findall(r'https?://[^\s\)\]\>\"\']+', e.body))
+        pairs: list[tuple[str, str]] = []
+        if e.html_body:
+            soup = BeautifulSoup(e.html_body, "html.parser")
+            seen: set[str] = set()
+            for a in soup.find_all("a", href=True):
+                href = a["href"]
+                if not href.startswith("http") or href in seen:
+                    continue
+                if any(t in href.lower() for t in _TRIVIAL_HREF):
+                    continue
+                seen.add(href)
+                label = " ".join(a.stripped_strings).lower().strip()
+                pairs.append((label, href))
+        links_by_subject[e.subject] = pairs
+        plain_by_subject[e.subject] = re.findall(r'https?://[^\s\)\]\>\"\']+', e.body)
+
+    # source_email 퍼지 매칭: GPT가 제목을 살짝 바꿀 수 있으므로
+    def _best_subject(src: str) -> str:
+        if src in links_by_subject:
+            return src
+        # 가장 많이 겹치는 subject 반환
+        best, best_score = src, 0
+        for subj in links_by_subject:
+            score = sum(1 for w in src.split() if w in subj)
+            if score > best_score:
+                best, best_score = subj, score
+        return best
+
+    # 이메일별 사용된 링크 인덱스 추적
+    used_idx: dict[str, set[int]] = {s: set() for s in links_by_subject}
+    # 전체 포털 URL 풀 (fallback용)
+    all_portal_hrefs: list[str] = []
+    seen_global: set[str] = set()
+    for pairs in links_by_subject.values():
+        for _, href in pairs:
+            if any(d in href for d in PORTAL_DOMAINS) and href not in seen_global:
+                all_portal_hrefs.append(href)
+                seen_global.add(href)
+    used_global: set[str] = set()
 
     result = []
     for p in postings:
         url = p.url
         title = p.job_title.lower()
+        title_words = {w for w in re.split(r"[\s/·,]+", title) if len(w) >= 2}
+        src = _best_subject(p.source_email)
+        pairs = links_by_subject.get(src, [])
+        plain_urls = plain_by_subject.get(src, [])
+        idx_used = used_idx.setdefault(src, set())
 
+        # ── 1단계: 해당 메일 HTML 링크에서 제목 매칭 ─────────────────────
         if not url:
-            for label, href in html_link_map.items():
+            for idx, (label, href) in enumerate(pairs):
+                if idx in idx_used:
+                    continue
                 if title in label or label in title:
                     url = href
+                    idx_used.add(idx)
                     break
 
-        if not url:
-            title_words = {w for w in title.split() if len(w) > 3}
+        # ── 1b: 단어 교집합 매칭 ──────────────────────────────────────
+        if not url and title_words:
+            for idx, (label, href) in enumerate(pairs):
+                if idx in idx_used:
+                    continue
+                label_words = set(re.split(r"[\s/·,\[\]()\-]+", label))
+                if title_words & label_words:
+                    url = href
+                    idx_used.add(idx)
+                    break
+
+        # ── 2단계: plain text URL에서 제목 단어 매칭 ─────────────────
+        if not url and title_words:
             for pu in plain_urls:
                 if any(w in pu.lower() for w in title_words):
                     url = pu
                     break
 
+        # ── 3단계: 해당 메일 HTML의 포털 URL 순서대로 배정 ───────────
         if not url:
-            job_kws = ["job", "jobs", "career", "careers", "position", "recruit"]
-            for pu in plain_urls:
-                if any(kw in pu.lower() for kw in job_kws):
-                    url = pu
+            for idx, (_, href) in enumerate(pairs):
+                if idx in idx_used:
+                    continue
+                if any(kw in href.lower() for kw in PORTAL_KWS):
+                    url = href
+                    idx_used.add(idx)
+                    break
+
+        # ── 4단계: 해당 메일 HTML의 미사용 링크 순서대로 배정 ─────────
+        if not url:
+            for idx, (_, href) in enumerate(pairs):
+                if idx in idx_used:
+                    url = href
+                    idx_used.add(idx)
+                    break
+
+        # ── 5단계: 전체 포털 URL 풀에서 순서대로 배정 ────────────────
+        if not url:
+            for href in all_portal_hrefs:
+                if href not in used_global:
+                    url = href
+                    used_global.add(href)
                     break
 
         result.append(p.model_copy(update={"url": url}))

@@ -47,6 +47,7 @@ class JobPosting(BaseModel):
     location: Optional[str] = None
     source_email: str
     url: Optional[str] = None
+    deadline: Optional[str] = None
 
 
 class JobPostingResult(JobPosting):

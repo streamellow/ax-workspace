@@ -90,11 +90,9 @@ def run_pipeline() -> None:
 
 
 # ── 스케줄 등록 ──────────────────────────────────────────────────────────────
-schedule.every().day.at("12:00").do(run_pipeline)
-schedule.every().day.at("14:00").do(run_pipeline)
-schedule.every().day.at("00:00").do(run_pipeline)
+schedule.every().hour.do(run_pipeline)
 
-log("스케줄러 시작 — 매일 12:00, 00:00 에 이메일 분석 및 Slack 알림 전송")
+log("스케줄러 시작 — 매 1시간마다 이메일 분석 및 Slack 알림 전송")
 
 while True:
     schedule.run_pending()

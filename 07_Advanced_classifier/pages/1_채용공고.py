@@ -10,6 +10,9 @@ import time
 import streamlit as st
 
 from retrieval import scrape_job_page
+from vector_store import store_job_postings as _vs_store_jobs
+from keyword_store import store_job_postings as _ks_store_jobs
+from login import require_login, logout_button
 
 st.set_page_config(
     page_title="채용공고",
@@ -17,6 +20,8 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
+
+require_login()
 
 # ── 사이드바 ────────────────────────────────────────────────────────────────
 with st.sidebar:
@@ -26,6 +31,8 @@ with st.sidebar:
         if st.button("🔄 다시 스크래핑", use_container_width=True):
             st.session_state.pop("scraped_results", None)
             st.rerun()
+
+logout_button()
 
 # ── 데이터 확인 ──────────────────────────────────────────────────────────────
 if "postings_with_urls" not in st.session_state:
@@ -66,6 +73,13 @@ if "scraped_results" not in st.session_state:
                 time.sleep(1)
 
     st.session_state["scraped_results"] = results
+
+    try:
+        _vs_store_jobs(results)
+        _ks_store_jobs(results)
+    except Exception:
+        pass
+
     progress_bar.empty()
     status_box.empty()
     st.rerun()
