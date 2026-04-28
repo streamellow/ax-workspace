@@ -19,6 +19,15 @@ load_dotenv(os.path.join(_ROOT, ".env"))
 from auth import get_calendar_service, CALENDAR_TOKEN_PATH
 
 
+def _is_calendar_connected() -> bool:
+    if os.path.exists(CALENDAR_TOKEN_PATH):
+        return True
+    try:
+        return "calendar_token" in st.secrets
+    except Exception:
+        return False
+
+
 # ── 자연어 파싱 ───────────────────────────────────────────────────────────────
 
 def _parse_schedule_prompt(text: str, today: datetime.date) -> dict | None:
@@ -267,7 +276,7 @@ with col1:
             st.error(_msg_text)
 
     if submitted and user_input.strip():
-        connected = os.path.exists(CALENDAR_TOKEN_PATH)
+        connected = _is_calendar_connected()
         if not connected:
             st.warning("먼저 Google Calendar를 연동해주세요. (우측 캘린더 하단 연동 버튼)")
         else:
@@ -427,7 +436,7 @@ with col1:
 
 # ── 오른쪽: Google Calendar ───────────────────────────────────────────────────
 with col2:
-    connected = os.path.exists(CALENDAR_TOKEN_PATH)
+    connected = _is_calendar_connected()
 
     if not connected:
         st.markdown(
